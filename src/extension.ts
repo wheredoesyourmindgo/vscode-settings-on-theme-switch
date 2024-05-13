@@ -15,7 +15,8 @@ export function activate(_context: vscode.ExtensionContext) {
 function updateSettingsBasedOnTheme(
   configuration: vscode.WorkspaceConfiguration
 ) {
-  const currentTheme = configuration.get<string>("workbench.colorTheme");
+  const themeKind = vscode.window.activeColorTheme.kind;
+
   const darkThemeSettings = configuration.get<object>(
     "settingsOnThemeSwitch.preferredDarkColorThemeSettings"
   );
@@ -23,7 +24,7 @@ function updateSettingsBasedOnTheme(
     "settingsOnThemeSwitch.preferredLightColorThemeSettings"
   );
 
-  if (currentTheme?.toLowerCase().includes("dark")) {
+  if (themeKind === vscode.ColorThemeKind.Dark) {
     applySettings(darkThemeSettings, configuration);
   } else {
     applySettings(lightThemeSettings, configuration);
