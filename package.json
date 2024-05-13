@@ -1,6 +1,6 @@
 {
-  "name": "theme-settings-switcher",
-  "displayName": "Theme Settings Switcher",
+  "name": "vscode-settings-on-theme-switch",
+  "displayName": "VSCode Settings on Theme Switch",
   "description": "Automatically change settings based on the active theme.",
   "version": "0.0.1",
   "engines": {
@@ -17,12 +17,12 @@
     "configuration": {
       "type": "object",
       "properties": {
-        "themeSettingsSwitcher.preferredDarkColorThemeSettings": {
+        "settingsOnThemeSwitch.preferredDarkColorThemeSettings": {
           "type": "object",
           "default": {},
           "description": "Settings to apply when a dark theme is active."
         },
-        "themeSettingsSwitcher.preferredLightColorThemeSettings": {
+        "settingsOnThemeSwitch.preferredLightColorThemeSettings": {
           "type": "object",
           "default": {},
           "description": "Settings to apply when a light theme is active."

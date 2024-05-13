@@ -19,10 +19,10 @@ function updateSettingsBasedOnTheme(
 ) {
   const currentTheme = configuration.get<string>("workbench.colorTheme");
   const darkThemeSettings = configuration.get<object>(
-    "themeSettingsSwitcher.preferredDarkColorThemeSettings"
+    "settingsOnThemeSwitch.preferredDarkColorThemeSettings"
   );
   const lightThemeSettings = configuration.get<object>(
-    "themeSettingsSwitcher.preferredLightColorThemeSettings"
+    "settingsOnThemeSwitch.preferredLightColorThemeSettings"
   );
 
   if (currentTheme?.toLowerCase().includes("dark")) {
