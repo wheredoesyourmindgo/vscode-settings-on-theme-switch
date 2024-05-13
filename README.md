@@ -3,10 +3,10 @@
 ## Example Settings
 
 ```json
-"settingsOnThemeSwitch.preferredDarkColorThemeSettings": {
+"settingsOnThemeSwitch.darkColorThemeSettings": {
   "editor.fontWeight": 400
 },
-"settingsOnThemeSwitch.preferredLightColorThemeSettings": {
+"settingsOnThemeSwitch.lightColorThemeSettings": {
   "editor.fontWeight": 425
 }
 ```
