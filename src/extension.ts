@@ -4,10 +4,8 @@ export function activate(_context: vscode.ExtensionContext) {
   const configuration = vscode.workspace.getConfiguration();
 
   // Listen for theme changes and update settings accordingly
-  vscode.workspace.onDidChangeConfiguration((event) => {
-    if (event.affectsConfiguration("workbench.colorTheme")) {
+  vscode.window.onDidChangeActiveColorTheme((event) => {
       updateSettingsBasedOnTheme(configuration);
-    }
   });
 
   // Initial settings update
