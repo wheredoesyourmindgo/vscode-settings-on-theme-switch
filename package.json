@@ -2,7 +2,7 @@
   "name": "vscode-settings-on-theme-switch",
   "displayName": "Settings on Theme Switch",
   "description": "Automatically change settings on color theme change.",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.89.0"
   },
