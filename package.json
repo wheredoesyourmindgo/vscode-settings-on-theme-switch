@@ -30,6 +30,11 @@
       }
     }
   },
+  "publisher": "wheredoesyourmindgo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch"
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
