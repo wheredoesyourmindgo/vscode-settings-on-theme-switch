@@ -1,6 +1,6 @@
 {
   "name": "vscode-settings-on-theme-switch",
-  "displayName": "VSCode Settings on Theme Switch",
+  "displayName": "Settings on Theme Switch",
   "description": "Automatically change settings based on the active theme.",
   "version": "0.0.4",
   "engines": {
