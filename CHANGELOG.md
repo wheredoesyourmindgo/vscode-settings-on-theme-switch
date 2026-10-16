@@ -2,7 +2,7 @@
 
 All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
-## [Unreleased]
+## [0.3.0] - 2026-10-15
 
 - Re-apply settings when `settingsOnThemeSwitch.*` is edited, without needing a theme switch.
 - Skip writing settings that already have the target value.
