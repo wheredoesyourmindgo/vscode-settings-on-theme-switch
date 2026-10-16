@@ -2,12 +2,13 @@
 
 All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
-## [Unreleased]
+## [0.4.0] - 2026-10-16
 
 - Add `settingsOnThemeSwitch.themeSettings` for settings that apply to specific themes by name.
 - Add `settingsOnThemeSwitch.highContrastDarkColorThemeSettings` and `settingsOnThemeSwitch.highContrastLightColorThemeSettings`.
 - Settings now layer: dark or light, then high contrast, then theme name, with the more specific value winning.
 - Rewrite README for the new settings.
+- Fix a faint outline along the light edge of the icon.
 
 ## [0.3.2] - 2026-10-16
 
