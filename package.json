@@ -1,13 +1,23 @@
 {
   "name": "vscode-settings-on-theme-switch",
   "displayName": "Settings on Theme Switch",
-  "description": "Automatically change settings on color theme change.",
+  "description": "Automatically apply different settings when switching between light and dark color themes.",
+  "keywords": [
+    "theme",
+    "dark mode",
+    "light mode",
+    "color theme",
+    "settings",
+    "auto switch",
+    "font weight"
+  ],
   "version": "0.2.2",
   "engines": {
     "vscode": "^1.89.0"
   },
   "icon": "images/icon.png",
   "categories": [
+    "Themes",
     "Other"
   ],
   "activationEvents": [
@@ -21,14 +31,17 @@
         "settingsOnThemeSwitch.darkColorThemeSettings": {
           "type": "object",
           "default": {},
-          "description": "Settings to apply when a dark theme is active."
+          "markdownDescription": "Settings to apply when a dark color theme is active, as a map of setting ID to value. Example: `{ \"editor.fontWeight\": \"400\" }`.",
+          "scope": "application"
         },
         "settingsOnThemeSwitch.lightColorThemeSettings": {
           "type": "object",
           "default": {},
-          "description": "Settings to apply when a light theme is active."
+          "markdownDescription": "Settings to apply when a light color theme is active, as a map of setting ID to value. Example: `{ \"editor.fontWeight\": \"500\" }`.",
+          "scope": "application"
         }
-      }
+      },
+      "title": "Settings on Theme Switch"
     }
   },
   "publisher": "wheredoesyourmindgo",
@@ -58,5 +71,8 @@
     "typescript": "^4.3.5",
     "vscode-test": "^1.5.0"
   },
-  "dependencies": {}
+  "homepage": "https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch#readme",
+  "bugs": {
+    "url": "https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch/issues"
+  }
 }

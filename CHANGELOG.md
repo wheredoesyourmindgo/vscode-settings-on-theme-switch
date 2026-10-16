@@ -2,6 +2,13 @@
 
 All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
+## [Unreleased]
+
+- Re-apply settings when `settingsOnThemeSwitch.*` is edited, without needing a theme switch.
+- Skip writing settings that already have the target value.
+- Restrict `settingsOnThemeSwitch.*` to user settings (`application` scope), since the values they apply are written to user settings.
+- Rewrite README; add Marketplace keywords, Themes category, and issue links.
+
 ## [0.2.2] - 2026-10-15
 
 - Activate on `onStartupFinished` instead of `*` to avoid slowing VS Code startup.

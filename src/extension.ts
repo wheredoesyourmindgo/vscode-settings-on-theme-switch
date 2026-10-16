@@ -1,10 +1,18 @@
 import * as vscode from "vscode";
 
+const SECTION = "settingsOnThemeSwitch";
+
 export function activate(context: vscode.ExtensionContext) {
-  // Listen for theme changes and update settings accordingly
   context.subscriptions.push(
+    // Listen for theme changes and update settings accordingly
     vscode.window.onDidChangeActiveColorTheme(() => {
       updateSettingsBasedOnTheme();
+    }),
+    // Re-apply when the user edits this extension's own settings
+    vscode.workspace.onDidChangeConfiguration((event) => {
+      if (event.affectsConfiguration(SECTION)) {
+        updateSettingsBasedOnTheme();
+      }
     })
   );
 
@@ -24,8 +32,8 @@ async function updateSettingsBasedOnTheme() {
   const configuration = vscode.workspace.getConfiguration();
 
   const settingsKey = isDarkTheme(vscode.window.activeColorTheme.kind)
-    ? "settingsOnThemeSwitch.darkColorThemeSettings"
-    : "settingsOnThemeSwitch.lightColorThemeSettings";
+    ? `${SECTION}.darkColorThemeSettings`
+    : `${SECTION}.lightColorThemeSettings`;
 
   await applySettings(configuration.get<object>(settingsKey), configuration);
 }
@@ -39,6 +47,13 @@ async function applySettings(
   }
 
   for (const [key, value] of Object.entries(settings)) {
+    // Skip no-op writes so settings.json (and Settings Sync) isn't touched
+    // needlessly, e.g. when several windows activate at once
+    const current = configuration.inspect(key)?.globalValue;
+    if (JSON.stringify(current) === JSON.stringify(value)) {
+      continue;
+    }
+
     try {
       await configuration.update(key, value, vscode.ConfigurationTarget.Global);
     } catch (error) {
