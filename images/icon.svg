@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Colors from the Nushu Light and Nushu Dark themes -->
+  <defs>
+    <clipPath id="r"><rect width="128" height="128" rx="28"/></clipPath>
+    <clipPath id="light"><polygon points="0,0 128,0 0,128"/></clipPath>
+    <clipPath id="dark"><polygon points="128,0 128,128 0,128"/></clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="128" height="128" fill="#25211d"/>
+    <polygon points="0,0 128,0 0,128" fill="#f8f6f1"/>
+  </g>
+  <!-- slider tracks, using each theme's muted color -->
+  <g clip-path="url(#light)" stroke="#989489" stroke-opacity="0.45" stroke-width="7" stroke-linecap="round">
+    <line x1="26" y1="40" x2="102" y2="40"/>
+    <line x1="26" y1="64" x2="102" y2="64"/>
+    <line x1="26" y1="88" x2="102" y2="88"/>
+  </g>
+  <g clip-path="url(#dark)" stroke="#7e746a" stroke-opacity="0.6" stroke-width="7" stroke-linecap="round">
+    <line x1="26" y1="40" x2="102" y2="40"/>
+    <line x1="26" y1="64" x2="102" y2="64"/>
+    <line x1="26" y1="88" x2="102" y2="88"/>
+  </g>
+  <!-- knobs -->
+  <circle cx="42" cy="40" r="10" fill="#e3b341" stroke="#f8f6f1" stroke-width="3"/>
+  <circle cx="84" cy="64" r="10" fill="#bc8cff" stroke="#25211d" stroke-width="3"/>
+  <circle cx="58" cy="88" r="10" fill="#bc8cff" stroke="#25211d" stroke-width="3"/>
+</svg>

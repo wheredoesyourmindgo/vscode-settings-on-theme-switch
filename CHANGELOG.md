@@ -2,6 +2,10 @@
 
 All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
+## [0.3.2] - 2026-10-16
+
+- New icon.
+
 ## [0.3.1] - 2026-10-15
 
 - Move back to the Other category; the extension isn't a color theme.
