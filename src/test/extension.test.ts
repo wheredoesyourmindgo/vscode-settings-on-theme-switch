@@ -1,9 +1,11 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
+import { resolveThemeName } from "../extension";
 
 const EXTENSION_ID = "wheredoesyourmindgo.vscode-settings-on-theme-switch";
 const DARK_THEME = "Default Dark Modern";
 const LIGHT_THEME = "Default Light Modern";
+const OTHER_DARK_THEME = "Default Dark+";
 
 function config() {
   return vscode.workspace.getConfiguration();
@@ -28,6 +30,10 @@ function fontSize() {
   return config().get<number>("editor.fontSize");
 }
 
+function cursorWidth() {
+  return config().get<number>("editor.cursorWidth");
+}
+
 async function setTheme(theme: string, kind: vscode.ColorThemeKind) {
   await setGlobal("workbench.colorTheme", theme);
   await waitFor(() => vscode.window.activeColorTheme.kind === kind);
@@ -39,9 +45,17 @@ suite("Settings on Theme Switch", () => {
   });
 
   teardown(async () => {
-    await setGlobal("settingsOnThemeSwitch.darkColorThemeSettings", undefined);
-    await setGlobal("settingsOnThemeSwitch.lightColorThemeSettings", undefined);
+    for (const key of [
+      "darkColorThemeSettings",
+      "lightColorThemeSettings",
+      "highContrastDarkColorThemeSettings",
+      "highContrastLightColorThemeSettings",
+      "themeSettings",
+    ]) {
+      await setGlobal(`settingsOnThemeSwitch.${key}`, undefined);
+    }
     await setGlobal("editor.fontSize", undefined);
+    await setGlobal("editor.cursorWidth", undefined);
     await setGlobal("workbench.colorTheme", undefined);
   });
 
@@ -97,5 +111,104 @@ suite("Settings on Theme Switch", () => {
     });
     await setTheme("Default High Contrast", vscode.ColorThemeKind.HighContrast);
     await waitFor(() => fontSize() === 25);
+  });
+
+  test("layers high-contrast settings over dark and light", async () => {
+    await setGlobal("settingsOnThemeSwitch.darkColorThemeSettings", {
+      "editor.fontSize": 15,
+      "editor.cursorWidth": 2,
+    });
+    await setGlobal("settingsOnThemeSwitch.lightColorThemeSettings", {
+      "editor.fontSize": 16,
+    });
+    await setGlobal("settingsOnThemeSwitch.highContrastDarkColorThemeSettings", {
+      "editor.cursorWidth": 4,
+    });
+    await setGlobal("settingsOnThemeSwitch.highContrastLightColorThemeSettings", {
+      "editor.fontSize": 18,
+    });
+
+    await setTheme("Default High Contrast", vscode.ColorThemeKind.HighContrast);
+    await waitFor(() => fontSize() === 15 && cursorWidth() === 4);
+
+    await setTheme(
+      "Default High Contrast Light",
+      vscode.ColorThemeKind.HighContrastLight
+    );
+    await waitFor(() => fontSize() === 18);
+  });
+
+  test("layers theme-name settings over everything else", async () => {
+    await setGlobal("settingsOnThemeSwitch.darkColorThemeSettings", {
+      "editor.fontSize": 15,
+      "editor.cursorWidth": 2,
+    });
+    await setGlobal("settingsOnThemeSwitch.themeSettings", {
+      [OTHER_DARK_THEME]: { "editor.fontSize": 27 },
+    });
+
+    await setTheme(DARK_THEME, vscode.ColorThemeKind.Dark);
+    await waitFor(() => fontSize() === 15 && cursorWidth() === 2);
+
+    // Same kind, different theme: only the name-specific setting changes
+    await setGlobal("workbench.colorTheme", OTHER_DARK_THEME);
+    await waitFor(() => fontSize() === 27 && cursorWidth() === 2);
+  });
+});
+
+suite("resolveThemeName", () => {
+  const { Dark, Light, HighContrast } = vscode.ColorThemeKind;
+  const kinds: Record<string, vscode.ColorThemeKind> = {
+    "My Dark": Dark,
+    "My Light": Light,
+    "My HC": HighContrast,
+  };
+  const kindOf = (name: string) => kinds[name];
+  const reader = (values: Record<string, unknown>) => ({
+    get: <T>(key: string) => values[key] as T | undefined,
+  });
+
+  test("uses workbench.colorTheme normally", () => {
+    const settings = reader({ "workbench.colorTheme": "My Dark" });
+    assert.strictEqual(resolveThemeName(Dark, settings, kindOf), "My Dark");
+  });
+
+  test("uses the preferred theme when following the OS", () => {
+    const settings = reader({
+      "window.autoDetectColorScheme": true,
+      "workbench.colorTheme": "Ignored",
+      "workbench.preferredDarkColorTheme": "My Dark",
+      "workbench.preferredLightColorTheme": "My Light",
+    });
+    assert.strictEqual(resolveThemeName(Light, settings, kindOf), "My Light");
+    assert.strictEqual(resolveThemeName(Dark, settings, kindOf), "My Dark");
+  });
+
+  test("uses the OS high-contrast theme when the chosen theme isn't one", () => {
+    const settings = reader({
+      "window.autoDetectHighContrast": true,
+      "workbench.colorTheme": "My Dark",
+      "workbench.preferredHighContrastColorTheme": "My HC",
+    });
+    assert.strictEqual(resolveThemeName(HighContrast, settings, kindOf), "My HC");
+  });
+
+  test("prefers a high-contrast theme picked by hand", () => {
+    const settings = reader({
+      "window.autoDetectHighContrast": true,
+      "workbench.colorTheme": "Other HC",
+      "workbench.preferredHighContrastColorTheme": "My HC",
+    });
+    const kindOfWithOther = (name: string) =>
+      name === "Other HC" ? HighContrast : kindOf(name);
+    assert.strictEqual(
+      resolveThemeName(HighContrast, settings, kindOfWithOther),
+      "Other HC"
+    );
+  });
+
+  test("returns undefined when no candidate matches", () => {
+    const settings = reader({ "workbench.colorTheme": "My Light" });
+    assert.strictEqual(resolveThemeName(Dark, settings, kindOf), undefined);
   });
 });

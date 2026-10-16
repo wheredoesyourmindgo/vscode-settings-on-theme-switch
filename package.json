@@ -1,7 +1,7 @@
 {
   "name": "vscode-settings-on-theme-switch",
   "displayName": "Settings on Theme Switch",
-  "description": "Automatically apply different settings when switching between light and dark color themes.",
+  "description": "Apply different settings for light, dark, and high-contrast color themes, or for specific themes by name.",
   "keywords": [
     "theme",
     "dark mode",
@@ -37,6 +37,27 @@
           "type": "object",
           "default": {},
           "markdownDescription": "Settings to apply when a light color theme is active, as a map of setting ID to value. Example: `{ \"editor.fontWeight\": \"500\" }`.",
+          "scope": "application"
+        },
+        "settingsOnThemeSwitch.highContrastDarkColorThemeSettings": {
+          "type": "object",
+          "default": {},
+          "markdownDescription": "Settings to apply when a high-contrast dark color theme is active. Layered on top of `#settingsOnThemeSwitch.darkColorThemeSettings#`, so list only what's different.",
+          "scope": "application"
+        },
+        "settingsOnThemeSwitch.highContrastLightColorThemeSettings": {
+          "type": "object",
+          "default": {},
+          "markdownDescription": "Settings to apply when a high-contrast light color theme is active. Layered on top of `#settingsOnThemeSwitch.lightColorThemeSettings#`, so list only what's different.",
+          "scope": "application"
+        },
+        "settingsOnThemeSwitch.themeSettings": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "object"
+          },
+          "markdownDescription": "Settings to apply for specific color themes, keyed by theme name as it appears in `#workbench.colorTheme#`. Layered on top of the dark, light, and high-contrast settings. Example: `{ \"Default Dark Modern\": { \"editor.fontWeight\": \"450\" } }`.",
           "scope": "application"
         }
       },
