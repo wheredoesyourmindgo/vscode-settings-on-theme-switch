@@ -2,12 +2,16 @@
 
 All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
+## [0.3.1] - 2026-10-15
+
+- Move back to the Other category; the extension isn't a color theme.
+
 ## [0.3.0] - 2026-10-15
 
 - Re-apply settings when `settingsOnThemeSwitch.*` is edited, without needing a theme switch.
 - Skip writing settings that already have the target value.
 - Restrict `settingsOnThemeSwitch.*` to user settings (`application` scope), since the values they apply are written to user settings.
-- Rewrite README; add Marketplace keywords, Themes category, and issue links.
+- Rewrite README; add Marketplace keywords and issue links.
 
 ## [0.2.2] - 2026-10-15
 
