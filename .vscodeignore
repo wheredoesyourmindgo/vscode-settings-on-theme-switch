@@ -2,7 +2,7 @@
 .vscode-test/**
 src/**
 .gitignore
-vsc-extension-quickstart.md
+.github/**
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map

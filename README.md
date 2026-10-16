@@ -1,5 +1,7 @@
 # Settings on Theme Switch
 
+[![CI](https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch/actions/workflows/ci.yml/badge.svg)](https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch/actions/workflows/ci.yml)
+
 Apply a different set of VS Code settings depending on whether a light or dark color theme is active.
 
 Some settings look right in one theme and wrong in the other. For example, text can look thinner on a light background, cursor and bracket styles may need tweaking, or you may want a different terminal font. This extension swaps those settings for you whenever the color theme changes. It works well with `window.autoDetectColorScheme`, which follows your OS light/dark mode.
