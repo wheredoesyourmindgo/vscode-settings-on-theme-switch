@@ -1,9 +1,27 @@
 # Change Log
 
-All notable changes to the "light-dark-setting-swap" extension will be documented in this file.
+All notable changes to the "Settings on Theme Switch" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.2.2] - 2026-10-15
 
-## [Unreleased]
+- Activate on `onStartupFinished` instead of `*` to avoid slowing VS Code startup.
+- Add MIT license.
+- Smaller extension package (compressed icon, test files excluded).
 
-- Initial release
+## [0.2.1] - 2026-10-15
+
+- Fix settings being read from a stale configuration snapshot.
+- Treat high-contrast dark themes as dark.
+- Await setting writes so updates apply reliably.
+
+## [0.2.0] - 2024-05-12
+
+- **Breaking:** renamed settings `settingsOnThemeSwitch.preferredDarkColorThemeSettings` → `settingsOnThemeSwitch.darkColorThemeSettings` and `settingsOnThemeSwitch.preferredLightColorThemeSettings` → `settingsOnThemeSwitch.lightColorThemeSettings`.
+
+## [0.1.0] - 2024-05-12
+
+- Added extension icon.
+
+## [0.0.3] - 2024-05-12
+
+- Initial release.

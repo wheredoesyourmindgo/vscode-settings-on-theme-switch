@@ -11,7 +11,7 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -32,6 +32,7 @@
     }
   },
   "publisher": "wheredoesyourmindgo",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/wheredoesyourmindgo/vscode-settings-on-theme-switch"
